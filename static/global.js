@@ -25,7 +25,7 @@ for (let p of pages) {
     let title = p.title;
     // Create link and add it to nav
     if (!ARE_WE_HOME && !url.startsWith("http")) {
-        url = "../" + url;
+        url = "/my-portfolio/" + url;
     }
     
     let a = document.createElement("a");
