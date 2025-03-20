@@ -1,0 +1,67 @@
+:root {
+	--grey: oklch(80% 3% 200);
+	--white: #ffffff;
+  }
+
+body {
+	/* Set line height to 1.5 times the font size
+	   and use the OS’s UI font as the website font
+	 */
+	font: 100%/1.5 system-ui;
+
+	max-width: 100ch;	
+	margin-inline: auto;
+	/* ANOTHER WAY TO DO IT */
+	/* margin-inline: max(1em, (100% - 100ch) / 2); */
+
+
+	nav {
+		display: flex;
+		padding: 0.1em;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		border-bottom-color: var(--grey);
+		text-align: center;
+
+	}
+	nav a {
+		flex: 1;
+		text-decoration: none;
+		color: inherit;
+		/* text-align: center; */
+		padding: 0.5em;
+	}
+
+	nav .current {
+		font-weight: bold;
+		border-bottom-width: 5px;
+		border-bottom-style: solid;
+		border-bottom-color: var(--grey);
+	}
+
+	nav a:hover {
+		padding-bottom: -0.1em;
+		padding: 0.5em;
+		background-color: oklch(from var(--grey) 95% 5% h);
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+		grid-template-columns: auto 1fr;
+	}
+
+	form label {
+		display: grid;
+		font-size: 1.1rem;
+		font-weight: bold;
+		color: #333;
+		grid-template-columns: subgrid;
+	}
+	
+	label, button {
+		grid-column: 1 / -1;
+	}
+	
+}
