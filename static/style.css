@@ -1,21 +1,21 @@
 :root {
 	--grey: oklch(80% 3% 200);
 	--white: #ffffff;
+	border-bottom-color: var(--border-color);
+	/* color-scheme: dark */
+	
   }
 
 body {
 	/* Set line height to 1.5 times the font size
 	   and use the OS’s UI font as the website font
 	 */
-	font: 100%/1.5 system-ui;
 
-	max-width: 100ch;	
-	margin-inline: auto;
 	/* ANOTHER WAY TO DO IT */
 	/* margin-inline: max(1em, (100% - 100ch) / 2); */
 
 
-	nav {
+	/* nav {
 		display: flex;
 		padding: 0.1em;
 		border-bottom-width: 1px;
@@ -28,7 +28,6 @@ body {
 		flex: 1;
 		text-decoration: none;
 		color: inherit;
-		/* text-align: center; */
 		padding: 0.5em;
 	}
 
@@ -43,12 +42,12 @@ body {
 		padding-bottom: -0.1em;
 		padding: 0.5em;
 		background-color: oklch(from var(--grey) 95% 5% h);
-	}
+	} */
 
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: 15px;
+		gap: 1000px;
 		grid-template-columns: auto 1fr;
 	}
 
