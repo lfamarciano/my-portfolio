@@ -1,12 +1,20 @@
 <script>
 import { base } from "$app/paths";
 import { page } from "$app/stores";
+
 let pages = [
     { url: "/", title: "Home" },
     { url: "/projects", title: "Projects" },
     { url: "/contact", title: "Contact" },
-    {url: "https://github.com/lfamarciano", title:"Github"}
+    { url: "/resume", title: "Resume" },
+    {url: "https://github.com/Mike-Kowalski", title:"Github"}
 ];
+
+let localStorage = globalThis.localStorage ?? {};
+let colorScheme = localStorage.colorScheme ?? "light dark";
+let root = globalThis?.document?.documentElement;
+$: root?.style.setProperty("color-scheme", colorScheme);
+$: localStorage.colorScheme = colorScheme;
 </script>
 
 <nav>
@@ -20,6 +28,15 @@ let pages = [
     </a>
   {/each}
 </nav>
+
+<label class="color-scheme">
+    Theme:
+    <select bind:value={ colorScheme }>       >
+        <option value="light dark"> Automatic </option>
+        <option value="light"> Light </option>
+        <option value="dark"> Dark </option>
+    </select>
+</label>
 
 <style>
     nav {
@@ -52,5 +69,14 @@ let pages = [
         padding: 0.5em;
         background-color: oklch(from var(--grey) 95% 5% h);
     }
+
+    .color-scheme{
+	position:absolute;
+	top: 1rem;
+	right: 1rem;
+	display: inline-flex;
+	gap: 5px;
+}
 </style>
+
 <slot />

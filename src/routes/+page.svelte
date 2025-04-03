@@ -1,11 +1,24 @@
+<svelte:head>
+  <title>Mike Wazowski: Personal site and portfolio</title>
+</svelte:head>
+<script>
+  import projects from "$lib/projects.json";
+  import Project from "$lib/Project.svelte";
+</script>
+<h1> Mike Wazowski</h1>
+   
+<img src="./images/mike.png" alt="mike" width="500px">
 
-<!-- <h1> (Heading 1) represents the main heading of a webpage or a section.-->
-<h1> Luís Felipe de Abreu Marciano</h1>
-
-<!-- <img> (Image) tag is used to display images.-->
-<img src="images/126877678.jpeg" alt="FOTO DE UM HOMEM LINDO" width="400">
-
-<!-- <p> (Paragraph) represents a paragraph of text.-->
-    <p> Hello World! I'm a Data Science student. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</p>
-    
-<!-- <nav> (Navigation) is used to create a menu with links to other pages or external sites. -->
+<p>Michael "Mike" Thomas Wazowski is the deuteragonist of the 2001 Disney Pixar animated film Monsters, Inc. and the protagonist of its 2013 prequel.
+    Depicted as a diminutive, one-eyed monster with a wisecracking veneer, Mike is an employee of Monsters, Incorporated, where he works closely with his longtime partner/best friend Sulley.
+    Mike's world gets turned upside down when a human girl (nicknamed "Boo") enters the monster world.
+    Teaming up with Sulley to return Boo to her world, Mike uncovers a company conspiracy and helps solve an energy crisis that plagues the entire city of Monstropolis
+</p>
+<h2>
+  Latest Projects
+</h2>
+<div class="projects">
+{#each projects.slice(0, 3) as p}
+  <Project data={p} hLevel="3"/>
+{/each}
+</div>
