@@ -51,6 +51,8 @@ let usableArea = {
     left: margin.left
 };
 let hoveredIndex = -1;
+let cursor = {x: 0, y: 0};
+
 usableArea.width = usableArea.right - usableArea.left;
 usableArea.height = usableArea.bottom - usableArea.top;
 
@@ -88,25 +90,7 @@ $: {
 
 <p> This page shows the stats of this website</p>
 
-<svg viewBox="0 0 {width} {height}">
-  <g transform="translate(0, {usableArea.bottom})" bind:this={xAxis} />
-  <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
-  <g class="gridlines" transform="translate({usableArea.left}, 0)" bind:this={yAxisGridlines} />
-  <g class="dots">
-  {#each commits as commit, index }
-      <circle
-        on:mouseenter={evt => hoveredIndex = index}
-        on:mouseleave={evt => hoveredIndex = -1}
-        cx={ xScale(commit.datetime) }
-        cy={ yScale(commit.hourFrac) }
-        r="5"
-        fill="steelblue"
-      />
-  {/each}
-  </g>
-</svg>
-
-<!-- <dl class="info tooltip">
+<dl class="info tooltip" hidden={hoveredIndex === -1} style="top: {cursor.y}px; left: {cursor.x}px">
   <dt>Commit</dt>
   <dd><a href="{ hoveredCommit.url }" target="_blank">{ hoveredCommit.id }</a></dd>
 
@@ -119,7 +103,28 @@ $: {
   <dt>Time</dt>
   <dd>{ hoveredCommit.time }</dd>
 
-</dl> -->
+</dl>
+
+<svg viewBox="0 0 {width} {height}">
+  <g transform="translate(0, {usableArea.bottom})" bind:this={xAxis} />
+  <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
+  <g class="gridlines" transform="translate({usableArea.left}, 0)" bind:this={yAxisGridlines} />
+  <g class="dots">
+  {#each commits as commit, index }
+      <circle
+        on:mouseenter={evt => {
+          hoveredIndex = index;
+          cursor = {x: evt.x, y: evt.y};
+        }}
+        on:mouseleave={evt => hoveredIndex = -1}
+        cx={ xScale(commit.datetime) }
+        cy={ yScale(commit.hourFrac) }
+        r="5"
+        fill="steelblue"
+      />
+  {/each}
+  </g>
+</svg>
 
 <section>
   <h2>Summary</h2>
@@ -167,7 +172,51 @@ $: {
     stroke-opacity: .2;
   }
 
-  
+  .info{
+    display: grid;
+    margin:0;
+    grid-template-columns: 2;
+    background-color: oklch(100% 0% 0 / 80%);
+    box-shadow: 1px 1px 3px 3px gray;
+    border-radius: 5px;
+    backdrop-filter: blur(10px);
+    padding:10px;
+
+    &[hidden]:not(:hover, :focus-within) {
+        opacity: 0;
+        visibility: hidden;
+    }
+  }
+
+  .info dt{
+    grid-column:1;
+    grid-row:auto;
+  }
+
+  .info dd{
+    grid-column:2;
+    grid-row:auto;
+    font-weight: 400;
+  }
+
+  .tooltip{
+    position: fixed;
+    top: 1em;
+    left: 1em;
+  }
+
+  circle {
+    transition: 200ms;
+
+    transform-origin: center;
+    transform-box: fill-box;
+
+    &:hover {
+        transform: scale(1.5);
+    }
+    
+  }
+
 
   </style>
 
