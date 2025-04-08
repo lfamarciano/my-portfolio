@@ -7,7 +7,8 @@ let pages = [
     { url: "/projects", title: "Projects" },
     { url: "/contact", title: "Contact" },
     { url: "/resume", title: "Resume" },
-    {url: "https://github.com/Mike-Kowalski", title:"Github"}
+    { url: "/meta", title: "Meta"},
+    { url: "https://github.com/Mike-Kowalski", title:"Github"}
 ];
 
 let localStorage = globalThis.localStorage ?? {};
