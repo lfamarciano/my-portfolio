@@ -13,6 +13,8 @@
     const fileInfoHeight = baseY + totalLinesOffset;
     const dotRowHeight = 20;
     let colorScale = d3.scaleOrdinal(d3.schemeTableau10);
+    let previousDotCounts = new Map();
+
 
 
 
@@ -31,6 +33,8 @@
         }
         return tspans;
     }
+
+    
 
     $: filesWithHeights = files.map(file => {
         const totalDots = Math.ceil(file.lines.length / linesPerDot);
@@ -51,7 +55,9 @@
 
     let files = [];
     $: files = d3.groups(lines, d => d.file)
-                .map(([name, lines]) => ({ name, lines }));
+                .map(([name, lines]) => ({ name, lines }))
+                .sort((a, b) => b.lines.length - a.lines.length);
+
 
     let svg;
     $: if (svg) {
@@ -97,6 +103,30 @@
         groups.select('text.linecount')
             .text(d => `${d.lines.length} lines`)
             .attr('x', 10);
+
+        groups.each(function(d) {
+            const groupSel = d3.select(this);
+            const unitDotsSel = groupSel.select('text.unit-dots');
+            const newCount = d.lines.length;
+            const oldCount = previousDotCounts.get(d.name) || 0;
+            
+            unitDotsSel.html(generateDots(d, svgWidth));
+            
+            if(newCount > oldCount) {
+                unitDotsSel.selectAll('tspan.dot')
+                    .filter(function() {
+                        return +this.getAttribute('data-index') >= oldCount;
+                    })
+                    .style('opacity',0)
+                    .transition()
+                        .duration(1000)
+                        .ease(d3.easeCubicOut) 
+                        .style('opacity',1)
+            }
+        
+            previousDotCounts.set(d.name, newCount);
+        });
+
         
         enterGroups.append('text')
             .attr('class', 'unit-dots')
