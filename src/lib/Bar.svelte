@@ -4,6 +4,7 @@
 	export let data = [];
 	export let width = 400;
 	export let barHeight = 30;
+	export let colorScale = d3.scaleOrdinal(d3.schemeTableau10);
 
 	let selectedIndex = -1;
 	let hoveredIndex = -1;

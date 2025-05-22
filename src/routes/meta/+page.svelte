@@ -20,6 +20,8 @@
     let commitTooltip;
     let tooltipPosition = {x: 0, y: 0};
     let clickedCommits = [];
+    export let colorScale = d3.scaleOrdinal(d3.schemeTableau10);
+
     
     $: hoveredCommit = filteredCommits[hoveredIndex] ?? hoveredCommit ?? {};
     $: allTypes = Array.from(new Set(data.map(d => d.type)));
@@ -161,8 +163,8 @@
     </svelte:head>
     <h1>Meta</h1>
 
-    <FileLines lines={filteredData} width={width}/>
-    
+    <FileLines lines={filteredData} width={width} colorScale={colorScale}/>
+
     <dl class="info tooltip" hidden={hoveredIndex === -1} style="top: {tooltipPosition.y}px; left: {tooltipPosition.x}px" bind:this={commitTooltip}>
         <dt>Commit</dt>
         <dd><a href="{ hoveredCommit.url }" target="_blank">{ hoveredCommit.id }</a></dd>
