@@ -14,15 +14,15 @@ if (currentLink) { // or if (currentLink !== undefined)
 	currentLink.classList.add("current");
 } */
 
-// const ARE_WE_HOME = document.documentElement.classList.contains("home");
+const ARE_WE_HOME = document.documentElement.classList.contains("home");
 
-// let pages = [
-// 	{url: ".", title: "Home"},
-// 	{url: "projects", title: "Projects"},
-// 	{url: "contact", title: "Contact"},
-//     {url: "resume", title: "Resume"},
-//     {url: "https://github.com/Mike-Kowalski", title:"Github"}
-// ];
+let pages = [
+	{url: ".", title: "Home"},
+	{url: "projects", title: "Projects"},
+	{url: "contact", title: "Contact"},
+    {url: "resume", title: "Resume"},
+    {url: "https://github.com/Mike-Kowalski", title:"Github"}
+];
 
 // let nav = document.createElement("nav");
 // document.body.prepend(nav);
